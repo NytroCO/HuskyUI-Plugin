@@ -6,8 +6,7 @@ import org.spongepowered.api.scheduler.Task;
 
 public class InventoryUtil {
     public static void close(Player player) {
-        Task.builder().execute(()->
-            player.closeInventory()
+        Task.builder().execute(player::closeInventory
         ).delayTicks(1).submit(HuskyUI.getInstance());
     }
 

@@ -1,6 +1,5 @@
 package com.codehusky.huskyui;
 
-import com.codehusky.huskyui.states.element.ActionableElement;
 import com.codehusky.huskyui.states.element.Element;
 import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.item.ItemTypes;
@@ -26,11 +25,11 @@ import java.util.Optional;
  */
 public class ElementRegistry extends StateContainer {
 
-    private HashMap<Integer, Element> elements;
+    private final HashMap<Integer, Element> elements;
 
     //position, element id
-    private HashMap<Integer, Integer> autoInvLocations;
-    private ArrayList<Integer> autoInvElements;
+    private final HashMap<Integer, Integer> autoInvLocations;
+    private final ArrayList<Integer> autoInvElements;
 
     private int elementIncrement = 0;
 
@@ -184,10 +183,7 @@ public class ElementRegistry extends StateContainer {
     public Optional<Integer> getElementIDFromItemStack(ItemStack stack){
         if(stack.getType() == ItemTypes.AIR || stack.getType() == ItemTypes.NONE) return Optional.empty();
         Optional<Object> optRegID = stack.toContainer().get(DataQuery.of("UnsafeData", "regid"));
-        if(optRegID.isPresent()){
-            return Optional.of((int)optRegID.get());
-        }
-        return Optional.empty();
+        return optRegID.map(o -> (int) o);
     }
 
     /**

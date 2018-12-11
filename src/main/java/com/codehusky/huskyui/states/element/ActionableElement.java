@@ -19,7 +19,6 @@ package com.codehusky.huskyui.states.element;
 
 import com.codehusky.huskyui.StateContainer;
 import com.codehusky.huskyui.states.action.Action;
-import com.codehusky.huskyui.states.action.CommandAction;
 import org.spongepowered.api.item.inventory.ItemStack;
 import javax.annotation.Nonnull;
 
@@ -33,7 +32,7 @@ public class ActionableElement extends Element {
      * The {@link Action} to be performed on
      * on this Element.
      */
-    @Nonnull private Action action;
+    @Nonnull private final Action action;
 
     /**
      * Constructs a new ActionableElement.

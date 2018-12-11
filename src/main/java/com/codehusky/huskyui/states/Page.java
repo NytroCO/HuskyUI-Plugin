@@ -53,10 +53,10 @@ public class Page extends State {
      * The default {@link ItemStack} to be used if no ItemStack is defined
      * for a slot while {@link Page#fillWhenEmpty} is set to <code>true</code>.
      */
-    @Nonnull public static ItemStack defaultEmptyStack = ItemStack.builder()
+    @Nonnull private static final ItemStack defaultEmptyStack = ItemStack.builder()
             .itemType(ItemTypes.STAINED_GLASS_PANE)
             .add(Keys.DYE_COLOR, DyeColors.BLACK)
-            .add(Keys.DISPLAY_NAME, Text.of(TextColors.DARK_GRAY, "HuskyUI")).build();
+            .add(Keys.DISPLAY_NAME, Text.of(TextColors.DARK_GRAY, "")).build();
 
     /**
      * The {@link Element}s that will be used by this Page.
@@ -114,10 +114,10 @@ public class Page extends State {
      * being digested by the Page.</p>
      */
     private final int rows;
-    private boolean updatable;
-    private int updateTickRate;
-    private Consumer<Page> updateConsumer;
-    private Runnable interrupt;
+    private final boolean updatable;
+    private final int updateTickRate;
+    private final Consumer<Page> updateConsumer;
+    private final Runnable interrupt;
     private Inventory cachedInventory;
 
     private Task updaterTask;
@@ -416,7 +416,6 @@ public class Page extends State {
     }
 
     public void interrupt(){
-        System.out.println("-++-\nINTERRUPT\nInterrupt Is Null: " + (this.interrupt == null) + "\nUpdater Task Is Null: " + (this.updaterTask == null));
         if(this.interrupt != null) {
             try {
                 this.interrupt.run();
@@ -424,13 +423,10 @@ public class Page extends State {
                 HuskyUI.getLogger().error("Error occurred while running HuskyUI Page interrupt.");
                 e.printStackTrace();
             }
-            System.out.println("Interrupt ran.");
         }
         if(updaterTask != null) {
             updaterTask.cancel();
-            System.out.println("Updater cancelled");
             updaterTask = null;
-            System.out.println("Updater set to null.");
         }
     }
 
