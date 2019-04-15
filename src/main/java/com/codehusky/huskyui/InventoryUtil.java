@@ -6,14 +6,13 @@ import org.spongepowered.api.scheduler.Task;
 
 public class InventoryUtil {
     public static void close(Player player) {
-        Task.builder().execute(()->
-            player.closeInventory()
+        Task.builder().execute(() ->
+                player.closeInventory()
         ).delayTicks(1).submit(HuskyUI.getInstance());
     }
 
     public static void open(Player player, Inventory inventory) {
-        Task.builder().execute(()-> {
-            player.closeInventory();
+        Task.builder().execute(() -> {
             player.openInventory(inventory);
         }).delayTicks(1).submit(HuskyUI.getInstance());
     }
